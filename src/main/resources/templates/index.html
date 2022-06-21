@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Time card work duration excel handler</title>
+    <link rel="stylesheet" th:href="@{/css/layui.css}" media="all">
+</head>
+<body>
+<script th:src="@{/layui.js}"></script>
+
+<div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%)">
+    <button type="button" class="layui-btn" id="excel-upload">
+        <i class="layui-icon">&#xe67c;</i>上传Excel文件
+    </button>
+</div>
+
+<script>
+    layui.use('upload', function () {
+        const upload = layui.upload;
+        let load;
+
+        //执行实例
+        upload.render({
+            elem: '#excel-upload', //绑定元素
+            url: '/upload', //上传接口
+            accept: 'file',
+            field: 'file',//服务端接受的文件名
+            before: obj => { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.msg('上传中,请稍等', {
+                    offset: 't',
+                    anim: 0
+                });
+                load = layer.load(); //上传loading
+            },
+            done: res => {
+                layer.close(load)
+
+                //上传完毕回调
+                console.log(res)
+            },
+            error: (index, upload) => {
+                layer.close(load)
+                layer.msg('服务出现异常', {
+                    offset: 't',
+                    anim: 0
+                });
+                //请求异常回调
+                console.log(index)
+                console.log(upload)
+            }
+        });
+    });
+</script>
+</body>
+</html>
