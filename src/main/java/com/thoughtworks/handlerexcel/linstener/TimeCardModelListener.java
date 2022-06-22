@@ -47,6 +47,10 @@ public class TimeCardModelListener implements ReadListener<TimeCardModel> {
 
     public HttpServletResponse response;
 
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
+    }
+
     /**
      * 单次缓存的数据量
      */
