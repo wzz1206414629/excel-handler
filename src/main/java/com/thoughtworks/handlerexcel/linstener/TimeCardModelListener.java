@@ -77,6 +77,9 @@ public class TimeCardModelListener implements ReadListener<TimeCardModel> {
         try {
             export();
         } catch (Exception ignore) {
+        } finally {
+            // clear last excel cache list
+            cachedDataList.clear();
         }
     }
 
